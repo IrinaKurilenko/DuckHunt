@@ -1,0 +1,70 @@
+@for $i from 1 through 5 {
+	@keyframes duck-fly-#{$i} {
+		0% {
+			left: -100px;
+			top: random(75) + vh;
+		}
+		50% {
+			left: 50%;
+			top: random(75) + vh;
+		}
+		100% {
+			left: 105%;
+			top: random(75) + vh;
+		}
+	}
+}
+
+body {
+	margin: 0;
+	padding: 0;
+}
+.container {
+	overflow: hidden;
+	background: url(img/bgr.jpg) center / cover no-repeat;
+	background-position: center;
+	background-size: cover;
+	height: 100vh;
+	counter-reset: count;
+	position: relative;
+}
+
+.duck-1 {
+	position: absolute;
+	animation: duck-fly 7s linear 0s 1 both;
+}
+@for $i from 1 through 5 {
+	.duck-#{$i} {
+		position: absolute;
+		animation: duck-fly-#{$i} 7s linear #{$i}s 1 both;
+	}
+}
+
+input[type="checkbox"] {
+	position: absolute;
+	left: -999999px;
+	visibility: hidden;
+}
+
+input[type="checkbox"]:checked {
+	counter-increment: count;
+}
+
+input[type="checkbox"]:checked + img {
+	visibility: hidden;
+	display: none;
+}
+
+h1 {
+	position: absolute;
+	left: 30px;
+	bottom: -15px;
+}
+
+h1::after {
+	content: " " counter(count);
+}
+
+img {
+	width: 80px;
+}
